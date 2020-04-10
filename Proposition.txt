@@ -1,0 +1,97 @@
+Q2.
+
+SELECT nom
+FROM brasseries
+
+SELECT COUNT(*)
+FROM brasseries
+
+Q3. (a)
+
+SELECT *
+FROM bieres
+JOIN brasseries
+ON bieres.id_brasserie=brasseries.id
+WHERE pays='Belgium'
+
+Q3. (b)
+
+
+SELECT *
+FROM bieres
+JOIN brasseries
+ON bieres.id_brasserie=brasseries.id
+WHERE pays='Belgium' AND abv>=7
+
+Q4.
+
+SELECT nom, pays
+FROM brasseries
+GROUP BY nom
+
+Q5.
+
+SELECT nom, pays
+FROM brasseries
+WHERE pays='Germany' OR pays='Belgium'
+
+SELECT nom, pays, address1 AS 'Adresse de la brasserie'
+FROM brasseries
+WHERE pays='Germany' OR pays='Belgium'
+
+Q6.
+
+SELECT COUNT(*), pays
+FROM brasseries
+GROUP BY pays
+
+SELECT COUNT(*), pays
+FROM brasseries
+GROUP BY pays
+ORDER BY COUNT(*)
+
+Q7.
+
+SELECT nom, address1, telephone
+FROM brasseries
+WHERE ville='Esquelbecq'
+
+Q8.
+
+SELECT bieres.nom AS 'Nom de la bière', styles.nom AS 'Style', categories.id
+FROM bieres
+JOIN styles
+ON bieres.id_style=styles.id
+JOIN categories
+ON styles.id_categorie=categories.id
+WHERE categories.id<5
+
+Q9.
+
+SELECT bieres.nom, bieres.abv, brasseries.nom
+FROM brasseries
+JOIN bieres
+ON bieres.id_brasserie=brasseries.id
+GROUP BY brasseries.nom
+ORDER BY abv
+
+Q10.
+
+SELECT bieres.nom, MIN(abv)
+FROM bieres
+WHERE NOT abv=0.0
+ORDER BY abv
+
+Q11.
+
+SELECT bieres.nom, MAX(bieres.abv)
+FROM bieres
+WHERE bieres.abv<(SELECT MAX(bieres.abv) FROM bieres)
+
+Q12.
+
+SELECT AVG(bieres.abv) AS "Degré moyen d'une bière américaine"
+FROM bieres
+JOIN brasseries
+ON bieres.id_brasserie=brasseries.id
+WHERE pays='United States'
